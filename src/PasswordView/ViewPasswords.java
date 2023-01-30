@@ -3,8 +3,10 @@ package PasswordView;
 import LoginWindow.Login;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ViewPasswords {
     private JList list1;
@@ -13,6 +15,8 @@ public class ViewPasswords {
     private JPanel panel1;
     private JFrame frameView;
     private String file;
+
+    private ArrayList<String> password;
 
     public ViewPasswords() {
         logOutButton.addActionListener(new ActionListener() {
@@ -27,22 +31,30 @@ public class ViewPasswords {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PasswordGenerator pg = new PasswordGenerator();
-                pg.GeneratorOpen(file);
+                pg.GeneratorOpen(file,password);
                 frameView.hide();
             }
         });
     }
 
-    public void viewOpen(String pathFile)
+    public void viewOpen(String pathFile, ArrayList<String> pas)
     {
+        password = pas;
         file = pathFile;
         frameView = new JFrame("ViewPassword");
         frameView.setContentPane(panel1);
         frameView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameView.pack();
         frameView.setVisible(true);
-    }
-    {
-
+        DefaultListModel demoList = new DefaultListModel();
+        int i = 0;
+        for (String line: password) {
+            if(i!=0) {
+                String[] a = line.split("\t");
+                demoList.addElement(a[0] + ": [ " + a[1] + "]");
+            }
+            i++;
+        }
+        list1.setModel(demoList);
     }
 }
