@@ -40,5 +40,6 @@ public class Login {
         frameLogin.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameLogin.pack();
         frameLogin.setVisible(true);
+
     }
 }
